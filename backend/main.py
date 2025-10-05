@@ -23,7 +23,7 @@ from backend.agents.pdf_rag_agent import PDFRAGAgent
 from backend.agents.web_search_agent import WebSearchAgent
 from backend.agents.arxiv_agent import ArXivAgent
 from backend.utils.logger import logger
-#from backend.storage.vector_store import vector_store
+from backend.storage.vector_store import vector_store
 from groq import Groq
 from contextlib import asynccontextmanager
 
