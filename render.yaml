@@ -16,7 +16,5 @@ services:
         value: 3.10.0
       - key: LLM_MODEL
         value: mixtral-8x7b-32768
-      - key: PORT
-        value: 8000
     healthCheckPath: /health
     
