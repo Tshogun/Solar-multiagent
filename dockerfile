@@ -1,37 +1,33 @@
-# Multi-Agent AI System Dockerfile
-
+# Use slim Python image
 FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install build tools
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy and install dependencies
+# Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application files
+# Copy app code
 COPY backend/ ./backend/
 COPY frontend/ ./frontend/
 COPY sample_pdfs/ ./sample_pdfs/
 COPY .env.example .env
 
-# Create necessary directories
+# Create required folders
 RUN mkdir -p data/uploads data/faiss_index logs
 
-# Set environment variable for port (default 8000)
-ENV PORT=8000
-
-# Expose backend port
+# Expose port (Render sets this via env var)
 EXPOSE 8000
 
-# Health check
+# Health check (optional)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:${PORT}/health || exit 1
+    CMD curl -f http://localhost:8000/health || exit 1
 
-# Default command
-CMD ["sh", "-c", "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"]
+# Start the app
+CMD ["sh", "-c", "uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
