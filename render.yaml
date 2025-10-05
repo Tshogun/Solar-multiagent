@@ -1,20 +1,31 @@
-# Render.com Deployment Configuration
+# Render.com Deployment - OPTIMIZED FOR FREE TIER
 
 services:
   - type: web
-    name: multi-agent-backend
+    name: multi-agent-system
     env: docker
-    region: singapore
+    region: oregon
     plan: free
-    dockerfilePath: ./dockerfile
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: GROQ_API_KEY
         sync: false
       - key: SERPAPI_KEY
         sync: false
-      - key: PYTHON_VERSION
-        value: 3.10.0
-      - key: LLM_MODEL
-        value: mixtral-8x7b-32768
+      - key: PORT
+        value: 8000
+      # Memory optimization settings
+      - key: SENTENCE_TRANSFORMERS_HOME
+        value: /tmp/models
+      - key: TRANSFORMERS_CACHE
+        value: /tmp/transformers
+      # Lightweight embedding model
+      - key: EMBEDDING_MODEL
+        value: all-MiniLM-L6-v2
+      # Reduce chunk sizes
+      - key: CHUNK_SIZE
+        value: 300
+      - key: TOP_K_RETRIEVAL
+        value: 3
     healthCheckPath: /health
-    
+    autoDeploy: true
