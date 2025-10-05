@@ -1,7 +1,6 @@
 # Render.com Deployment Configuration
 
 services:
-  # Backend API Service
   - type: web
     name: multi-agent-backend
     env: python
@@ -22,16 +21,3 @@ services:
         value: 8000
     healthCheckPath: /health
     
-  # Frontend Service
-  - type: web
-    name: multi-agent-frontend
-    env: python
-    region: oregon
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0
-    envVars:
-      - key: API_BASE_URL
-        value: https://multi-agent-backend.onrender.com
-      - key: PYTHON_VERSION
-        value: 3.10.0
