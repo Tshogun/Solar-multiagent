@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI):
     try:
         validate_settings()
         await controller.initialize()
-        await pdf_rag.initialize()
+        #await pdf_rag.initialize()
         await web_search.initialize()
         await arxiv_agent.initialize()
         print("\n✓ All agents initialized successfully")
