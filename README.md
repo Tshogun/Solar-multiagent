@@ -1,4 +1,4 @@
-# Multi-Agent AI System
+# Solar Multi-Agent AI System
 
 A modular multi-agent AI system that dynamically routes user queries to specialized agents for optimal information retrieval and synthesis.
 
@@ -10,47 +10,46 @@ A modular multi-agent AI system that dynamically routes user queries to speciali
 - **ArXiv Agent**: Search and retrieve academic papers
 - **Answer Synthesis**: Intelligent combination of information from multiple sources
 - **Comprehensive Logging**: Full traceability of decisions and agent interactions
-- **Modern UI**: Clean Streamlit interface for easy interaction
 
 ## 🏗️ Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    User Interface                        │
-│                  (Streamlit Frontend)                    │
+│                    User Interface                       |
+│                  (Streamlit Frontend)                   |
 └──────────────────────┬──────────────────────────────────┘
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────┐
-│                   FastAPI Backend                        │
+│                   FastAPI Backend                       |
 ├──────────────────────┬──────────────────────────────────┤
-│                      │                                   │
+│                      │                                  |
 │          ┌───────────▼────────────┐                     │
 │          │   Controller Agent     │                     │
 │          │  (LLM-based Routing)   │                     │
 │          └───────────┬────────────┘                     │
-│                      │                                   │
-│        ┌─────────────┼─────────────┐                   │
+│                      │                                  |
+│        ┌─────────────┼─────────────┐                    |
 │        │             │             │                    │
-│   ┌────▼─────┐  ┌───▼────┐  ┌─────▼──────┐            │
-│   │ PDF RAG  │  │  Web   │  │   ArXiv    │            │
-│   │  Agent   │  │ Search │  │   Agent    │            │
-│   │          │  │ Agent  │  │            │            │
-│   └────┬─────┘  └───┬────┘  └─────┬──────┘            │
-│        │            │             │                     │
-│   ┌────▼─────┐  ┌───▼────┐  ┌─────▼──────┐            │
-│   │  FAISS   │  │ DuckDGo│  │  ArXiv API │            │
-│   │  Vector  │  │ Search │  │            │            │
-│   │  Store   │  └────────┘  └────────────┘            │
+│   ┌────▼─────┐  ┌───▼────┐  ┌─────▼──────┐              |
+│   │ PDF RAG  │  │  Web   │  │   ArXiv    │              |
+│   │  Agent   │  │ Search │  │   Agent    │              |
+│   │          │  │ Agent  │  │            │              |
+│   └────┬─────┘  └───┬────┘  └─────┬──────┘              |
+│        │            │             │                     |
+│   ┌────▼─────┐  ┌───▼────┐  ┌─────▼──────┐              |
+│   │  FAISS   │  │ DuckDGo│  │  ArXiv API │              |
+│   │  Vector  │  │ Search │  │            │              |
+│   │  Store   │  └────────┘  └────────────┘              |
 │   └──────────┘                                          │
 └─────────────────────────────────────────────────────────┘
 ```
 
 ## 📋 Prerequisites
 
-- Python 3.9+
-- Groq API Key ([Get one here](https://console.groq.com))
-- 2GB+ RAM for embeddings model
+- Python 3+
+- Groq API Key (https://console.groq.com)
+- Serp API key
 - Internet connection for web search and ArXiv
 
 ## 🚀 Quick Start
@@ -66,7 +65,8 @@ cd multi-agent-system
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+#on macos: source venv/bin/activate 
+ # On Windows: venv\Scripts\activate
 ```
 
 ### 3. Install Dependencies
@@ -79,26 +79,17 @@ pip install -r requirements.txt
 
 ```bash
 cp .env.example .env
-# Edit .env and add your GROQ_API_KEY
+# Edit .env and add your GROQ_API_KEY and SERP_API_KEY
 ```
 
 ### 5. Run the Backend
 
 ```bash
-cd backend
-uvicorn main:app --reload
+uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at `http://localhost:8000`
 API Documentation: `http://localhost:8000/docs`
-
-### 6. Run the Frontend (New Terminal)
-
-```bash
-streamlit run frontend/app.py
-```
-
-The UI will open at `http://localhost:8501`
 
 ## 📁 Project Structure
 
@@ -139,7 +130,7 @@ multi-agent-system/
 
 ### Query the System
 
-1. Open the Streamlit UI at `http://localhost:8501`
+1. Open the UI at `http://localhost:8000`
 2. Enter your question in the text area
 3. Click "Submit Query"
 4. View the answer, agents used, and sources
@@ -173,22 +164,6 @@ multi-agent-system/
 - `GET /stats` - Get statistics
 - `GET /indexed_files` - List indexed PDFs
 
-### Example API Usage
-
-```bash
-# Query the system
-curl -X POST "http://localhost:8000/ask" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "What is machine learning?"}'
-
-# Upload a PDF
-curl -X POST "http://localhost:8000/upload_pdf" \
-  -F "file=@document.pdf"
-
-# Get logs
-curl "http://localhost:8000/logs?limit=10"
-```
-
 ## ⚙️ Configuration
 
 Edit `.env` file to customize:
@@ -212,23 +187,17 @@ ARXIV_MAX_RESULTS=5
 ## 🧪 Running Tests
 
 ```bash
-# Run all tests
 pytest
-
-# Run with coverage
-pytest --cov=backend tests/
-
-# Run specific test file
-pytest tests/test_agents.py
 ```
 
 ## 🐳 Docker Deployment
 
+Build Container: 
 ```bash
-# Build image
 docker build -t multi-agent-system .
-
-# Run container
+```
+Run Container:
+```bash
 docker run -p 8000:8000 -p 8501:8501 \
   -e GROQ_API_KEY=your_key \
   multi-agent-system
@@ -241,7 +210,7 @@ docker run -p 8000:8000 -p 8501:8501 \
 3. Add environment variables
 4. Deploy!
 
-See `deployment/render.yaml` for configuration.
+See `render.yaml` for configuration.
 
 ## 🔒 Security Considerations
 
@@ -257,53 +226,3 @@ See `deployment/render.yaml` for configuration.
 - Agent decisions tracked with rationale
 - Execution times recorded
 - Success rates monitored
-
-## 🐛 Troubleshooting
-
-### Backend won't start
-- Check if `.env` file exists with `GROQ_API_KEY`
-- Ensure port 8000 is not in use
-- Verify all dependencies installed
-
-### PDF upload fails
-- Check file size (max 10MB)
-- Ensure PDF is not corrupted
-- Verify upload directory permissions
-
-### No search results
-- Check internet connection
-- Verify API keys
-- Check if documents are indexed
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-## 📝 License
-
-MIT License - See LICENSE file for details
-
-## 👥 Authors
-
-NebulaByte Development Team
-
-## 🙏 Acknowledgments
-
-- Groq for LLM API
-- Sentence Transformers for embeddings
-- FAISS for vector search
-- FastAPI and Streamlit for frameworks
-
-## 📮 Support
-
-For issues and questions:
-- Open an issue on GitHub
-- Contact: support@nebulabyte.com
-
----
-
-**Note**: This project is for educational purposes as part of the NebulaByte internship program.
