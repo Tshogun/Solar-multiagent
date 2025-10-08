@@ -1,10 +1,3 @@
-# ============================================
-
-# backend/agents/__init__.py
-"""
-Agent modules for multi-agent system
-"""
-
 from .base_agent import BaseAgent
 from .controller import ControllerAgent
 from .pdf_rag_agent import PDFRAGAgent

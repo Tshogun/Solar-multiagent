@@ -1,8 +1,3 @@
-"""
-Controller Agent
-Routes queries to appropriate agents using LLM-based decision making
-"""
-
 from typing import List, Dict, Any, Tuple
 from groq import Groq
 import re

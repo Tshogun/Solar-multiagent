@@ -12,70 +12,153 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.5; }
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
         .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.2rem;
+            opacity: 0.85;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
         .main-card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.4), 0 0 1px rgba(255,255,255,0.1) inset;
             margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #e0e0e0;
+            gap: 8px;
+            margin-bottom: 35px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+            padding-bottom: 0;
         }
 
         .tab {
-            padding: 12px 24px;
+            padding: 14px 28px;
             background: none;
             border: none;
             cursor: pointer;
             font-size: 1rem;
             color: #666;
             border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            position: relative;
+        }
+
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: translateX(-50%);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 3px 3px 0 0;
         }
 
         .tab:hover {
             color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 8px 8px 0 0;
         }
 
         .tab.active {
             color: #667eea;
-            border-bottom-color: #667eea;
+        }
+
+        .tab.active::after {
+            width: 100%;
         }
 
         .tab-content {
             display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .tab-content.active {
@@ -88,190 +171,287 @@
 
         .query-input {
             width: 100%;
-            padding: 15px;
+            padding: 18px;
             font-size: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+            background: rgba(249, 249, 249, 0.5);
         }
 
         .query-input:focus {
             outline: none;
             border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
 
         .button-group {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             margin-top: 15px;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: 13px 28px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
         }
 
         .btn-secondary {
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
             color: #666;
         }
 
         .btn-secondary:hover {
-            background: #e0e0e0;
+            background: linear-gradient(135deg, #e8e8e8, #d8d8d8);
+            transform: translateY(-2px);
         }
 
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none !important;
         }
 
         .examples {
-            margin-top: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .examples strong {
+            color: #667eea;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .example-chip {
             display: inline-block;
-            padding: 8px 16px;
-            margin: 5px;
-            background: #f0f0f0;
-            border-radius: 20px;
+            padding: 10px 18px;
+            margin: 8px 5px 0 0;
+            background: white;
+            border-radius: 25px;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
         }
 
         .example-chip:hover {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
         .response-section {
             display: none;
-            margin-top: 30px;
         }
 
         .response-section.show {
             display: block;
+            animation: slideInUp 0.5s ease;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .answer-box {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         .answer-box h3 {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             color: #333;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .answer-text {
-            line-height: 1.6;
-            color: #555;
+            line-height: 1.8;
+            color: #444;
             white-space: pre-wrap;
+            font-size: 1.05rem;
         }
 
         .agent-badges {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 12px;
+            margin: 20px 0;
         }
 
         .badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
             font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
         }
 
         .badge-pdf {
-            background: #ff7f0e;
+            background: linear-gradient(135deg, #ff7f0e, #ff9f4a);
             color: white;
         }
 
         .badge-web {
-            background: #2ca02c;
+            background: linear-gradient(135deg, #2ca02c, #4cbb4c);
             color: white;
         }
 
         .badge-arxiv {
-            background: #d62728;
+            background: linear-gradient(135deg, #d62728, #e84749);
             color: white;
         }
 
         .rationale-box {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
+            background: linear-gradient(135deg, rgba(227, 242, 253, 0.6), rgba(200, 230, 250, 0.6));
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid rgba(33, 150, 243, 0.2);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.1);
+        }
+
+        .rationale-box strong {
+            color: #1976d2;
+            font-size: 1.05rem;
         }
 
         .sources-section {
-            margin-top: 20px;
+            margin-top: 25px;
+        }
+
+        .sources-section h3 {
+            margin-bottom: 18px;
+            color: #333;
+            font-size: 1.3rem;
         }
 
         .source-item {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.15);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .source-item:hover {
+            transform: translateX(5px);
+            border-color: #667eea;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
         }
 
         .source-title {
-            font-weight: 600;
+            font-weight: 700;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
         }
 
         .source-content {
             color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            line-height: 1.6;
         }
 
         .source-link {
             color: #667eea;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
         }
 
         .source-link:hover {
-            text-decoration: underline;
+            color: #764ba2;
+            gap: 8px;
         }
 
         .upload-section {
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            padding: 40px;
+            border: 3px dashed rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            padding: 60px 40px;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.02), rgba(118, 75, 162, 0.02));
+            cursor: pointer;
         }
 
         .upload-section:hover {
             border-color: #667eea;
-            background: #f9f9f9;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+            transform: scale(1.02);
         }
 
         .upload-section input[type="file"] {
@@ -281,13 +461,14 @@
         .upload-label {
             cursor: pointer;
             color: #667eea;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         .loading {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 30px;
         }
 
         .loading.show {
@@ -295,13 +476,13 @@
         }
 
         .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
+            border: 4px solid rgba(102, 126, 234, 0.1);
+            border-top: 4px solid #667eea;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
@@ -311,10 +492,17 @@
 
         .status-indicator {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            margin-right: 8px;
+            margin-right: 10px;
+            box-shadow: 0 0 10px currentColor;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .status-online {
@@ -327,59 +515,109 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
         }
 
         .stat-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 30px;
+            border-radius: 16px;
             text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transition: all 0.5s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+        }
+
+        .stat-card:hover::before {
+            top: -10%;
+            right: -10%;
         }
 
         .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            position: relative;
         }
 
         .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
+            font-size: 0.95rem;
+            opacity: 0.95;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
         }
 
         .log-item {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .log-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
         }
 
         .log-query {
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.05rem;
         }
 
         .log-meta {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #666;
         }
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
             .main-card {
-                padding: 20px;
+                padding: 25px 20px;
+                border-radius: 16px;
             }
 
             .tabs {
                 overflow-x: auto;
+                gap: 5px;
+            }
+
+            .tab {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -387,8 +625,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🤖 Multi-Agent AI System</h1>
-            <p>Dynamic query routing with specialized agents</p>
+            <h1>Solar Multi-Agent AI System</h1>
+            <p>Performs dynamic query routing with specialized agents for pdf retrieval, web queries and exploring academic papers.</p>
         </div>
 
         <div class="main-card">
@@ -447,7 +685,7 @@
                         <div id="sources-list"></div>
                     </div>
 
-                    <p style="text-align: right; color: #999; font-size: 0.85rem; margin-top: 15px;">
+                    <p style="text-align: right; color: #999; font-size: 0.9rem; margin-top: 20px;">
                         ⏱️ Execution time: <span id="exec-time">0</span>s
                     </p>
                 </div>
@@ -458,7 +696,7 @@
                 <div class="upload-section" onclick="document.getElementById('pdf-input').click()">
                     <label class="upload-label">
                         📄 Click to upload PDF (max 10MB)<br>
-                        <span style="color: #999; font-size: 0.9rem;">The system will extract, chunk, and index the document</span>
+                        <span style="color: #999; font-size: 0.95rem; font-weight: 400;">The system will extract, chunk, and index the document</span>
                     </label>
                     <input type="file" id="pdf-input" accept=".pdf" onchange="uploadPDF(this)">
                 </div>
@@ -468,9 +706,9 @@
                     <p>Processing PDF...</p>
                 </div>
 
-                <div id="upload-result" style="margin-top: 20px;"></div>
+                <div id="upload-result" style="margin-top: 25px;"></div>
 
-                <div style="margin-top: 30px;">
+                <div style="margin-top: 35px;">
                     <h3>📁 Indexed Files</h3>
                     <div id="indexed-files"></div>
                 </div>
@@ -478,7 +716,7 @@
 
             <!-- Logs Tab -->
             <div id="logs-tab" class="tab-content">
-                <div style="margin-bottom: 15px;">
+                <div style="margin-bottom: 20px;">
                     <button class="btn btn-primary" onclick="loadLogs()">🔄 Refresh Logs</button>
                 </div>
                 <div id="logs-list"></div>
@@ -486,14 +724,14 @@
 
             <!-- Stats Tab -->
             <div id="stats-tab" class="tab-content">
-                <div style="margin-bottom: 15px;">
+                <div style="margin-bottom: 20px;">
                     <button class="btn btn-primary" onclick="loadStats()">🔄 Refresh Stats</button>
                 </div>
                 <div class="stats-grid" id="stats-grid"></div>
             </div>
         </div>
 
-        <div style="text-align: center; color: white; margin-top: 20px; opacity: 0.8;">
+        <div style="text-align: center; color: white; margin-top: 25px; opacity: 0.9; font-size: 1.05rem;">
             <span class="status-indicator" id="status-indicator"></span>
             <span id="status-text">Checking backend...</span>
         </div>
@@ -502,9 +740,8 @@
     <script>
         const API_BASE = window.location.hostname === 'localhost' 
             ? 'http://localhost:8000' 
-            : '';  // Use relative URL in production
+            : '';
 
-        // Check backend status
         async function checkBackendStatus() {
             try {
                 const response = await fetch(`${API_BASE}/health`);
@@ -521,7 +758,6 @@
             }
         }
 
-        // Switch tabs
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -534,18 +770,15 @@
             if (tabName === 'upload') loadIndexedFiles();
         }
 
-        // Set example query
         function setQuery(text) {
             document.getElementById('query-input').value = text;
         }
 
-        // Clear query
         function clearQuery() {
             document.getElementById('query-input').value = '';
             document.getElementById('response-section').classList.remove('show');
         }
 
-        // Submit query
         async function submitQuery() {
             const query = document.getElementById('query-input').value.trim();
             if (!query) {
@@ -572,13 +805,11 @@
             }
         }
 
-        // Display response
         function displayResponse(data) {
             document.getElementById('answer-text').textContent = data.answer;
             document.getElementById('rationale-text').textContent = data.decision_rationale;
             document.getElementById('exec-time').textContent = data.execution_time.toFixed(2);
 
-            // Agent badges
             const badgesHTML = data.agents_used.map(agent => {
                 const className = agent === 'pdf_rag' ? 'badge-pdf' : 
                                  agent === 'web_search' ? 'badge-web' : 'badge-arxiv';
@@ -588,7 +819,6 @@
             }).join('');
             document.getElementById('agent-badges').innerHTML = badgesHTML;
 
-            // Sources
             const sourcesHTML = data.sources.slice(0, 5).map((source, i) => `
                 <div class="source-item">
                     <div class="source-title">Source ${i + 1}: ${source.source}</div>
@@ -602,7 +832,6 @@
             document.getElementById('response-section').classList.add('show');
         }
 
-        // Upload PDF
         async function uploadPDF(input) {
             const file = input.files[0];
             if (!file) return;
@@ -650,7 +879,6 @@
             }
         }
 
-        // Load indexed files
         async function loadIndexedFiles() {
             try {
                 const response = await fetch(`${API_BASE}/indexed_files`);
@@ -666,7 +894,6 @@
             }
         }
 
-        // Load logs
         async function loadLogs() {
             try {
                 const response = await fetch(`${API_BASE}/logs?limit=20`);
@@ -689,7 +916,6 @@
             }
         }
 
-        // Load stats
         async function loadStats() {
             try {
                 const response = await fetch(`${API_BASE}/stats`);
@@ -721,10 +947,8 @@
             }
         }
 
-        // Initialize
-        
         checkBackendStatus();
-        setInterval(checkBackendStatus, 30000);  // Check every 30s
+        setInterval(checkBackendStatus, 30000);
     </script>
 </body>
 </html>

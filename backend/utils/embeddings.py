@@ -1,8 +1,3 @@
-"""
-Embedding Utilities
-Handles text embeddings using Sentence Transformers
-"""
-
 from sentence_transformers import SentenceTransformer
 from typing import List, Union
 import numpy as np

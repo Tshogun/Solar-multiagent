@@ -1,8 +1,3 @@
-"""
-Configuration management for Multi-Agent System
-Handles environment variables and application settings
-"""
-
 import os
 from pathlib import Path
 from pydantic_settings import BaseSettings

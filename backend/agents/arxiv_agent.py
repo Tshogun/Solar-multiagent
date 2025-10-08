@@ -1,8 +1,3 @@
-"""
-ArXiv Agent
-Searches and retrieves academic papers from ArXiv
-"""
-
 from typing import List, Dict, Any
 import arxiv
 

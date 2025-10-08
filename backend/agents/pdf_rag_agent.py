@@ -1,8 +1,3 @@
-"""
-PDF RAG Agent
-Handles PDF upload, processing, indexing, and retrieval
-"""
-
 from pathlib import Path
 from typing import List, Dict, Any
 import shutil

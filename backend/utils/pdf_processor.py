@@ -1,8 +1,3 @@
-"""
-PDF Processing Utilities
-Handles PDF text extraction, chunking, and metadata extraction
-"""
-
 import fitz  # PyMuPDF
 import pdfplumber
 from pathlib import Path

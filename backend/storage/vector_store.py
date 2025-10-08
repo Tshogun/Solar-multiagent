@@ -1,8 +1,3 @@
-"""
-FAISS Vector Store
-Handles vector indexing and similarity search
-"""
-
 import faiss
 import numpy as np
 import pickle

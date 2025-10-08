@@ -1,8 +1,3 @@
-"""
-Web Search Agent
-Performs real-time web searches using SerpAPI or DuckDuckGo
-"""
-
 from typing import List, Dict, Any
 from duckduckgo_search import DDGS
 import requests

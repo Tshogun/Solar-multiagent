@@ -1,8 +1,3 @@
-"""
-Logging Utilities
-Handles logging of agent decisions and system events
-"""
-
 import json
 from pathlib import Path
 from datetime import datetime

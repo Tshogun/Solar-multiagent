@@ -1,7 +1,3 @@
-"""
-API Integration Tests
-"""
-
 import pytest
 from fastapi.testclient import TestClient
 from pathlib import Path

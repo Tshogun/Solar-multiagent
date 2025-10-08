@@ -2,7 +2,7 @@
 
 A modular multi-agent AI system that dynamically routes user queries to specialized agents for optimal information retrieval and synthesis.
 
-## 🌟 Features
+## Features
 
 - **Dynamic Routing**: LLM-powered controller automatically decides which agents to call
 - **PDF RAG Agent**: Process and query uploaded PDF documents using vector search
@@ -11,7 +11,7 @@ A modular multi-agent AI system that dynamically routes user queries to speciali
 - **Answer Synthesis**: Intelligent combination of information from multiple sources
 - **Comprehensive Logging**: Full traceability of decisions and agent interactions
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -45,14 +45,14 @@ A modular multi-agent AI system that dynamically routes user queries to speciali
 └─────────────────────────────────────────────────────────┘
 ```
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Python 3+
 - Groq API Key (https://console.groq.com)
 - Serp API key
 - Internet connection for web search and ArXiv
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone the Repository
 
@@ -91,7 +91,7 @@ uvicorn backend.main:app --host 0.0.0.0 --port 8000
 The API will be available at `http://localhost:8000`
 API Documentation: `http://localhost:8000/docs`
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 multi-agent-system/
@@ -126,7 +126,7 @@ multi-agent-system/
 └── README.md
 ```
 
-## 🎯 Usage
+## Usage
 
 ### Query the System
 
@@ -153,7 +153,7 @@ multi-agent-system/
 - **Logs Page**: View recent queries and routing decisions
 - **Statistics Page**: See system performance metrics
 
-## 🔧 API Endpoints
+## API Endpoints
 
 ### Core Endpoints
 
@@ -164,7 +164,7 @@ multi-agent-system/
 - `GET /stats` - Get statistics
 - `GET /indexed_files` - List indexed PDFs
 
-## ⚙️ Configuration
+## Configuration
 
 Edit `.env` file to customize:
 
@@ -184,13 +184,13 @@ WEB_SEARCH_RESULTS=5
 ARXIV_MAX_RESULTS=5
 ```
 
-## 🧪 Running Tests
+##  Running Tests
 
 ```bash
 pytest
 ```
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 Build Container: 
 ```bash
@@ -203,7 +203,7 @@ docker run -p 8000:8000 -p 8501:8501 \
   multi-agent-system
 ```
 
-## 🌐 Deploy to Render
+## Deploy to Render
 
 1. Push code to GitHub
 2. Connect to Render
@@ -212,7 +212,7 @@ docker run -p 8000:8000 -p 8501:8501 \
 
 See `render.yaml` for configuration.
 
-## 🔒 Security Considerations
+## Security Considerations
 
 - API keys stored in environment variables
 - PDF uploads limited to 10MB
@@ -220,7 +220,7 @@ See `render.yaml` for configuration.
 - No long-term storage of PII
 - CORS configured for security
 
-## 📊 Monitoring
+##  Monitoring
 
 - All queries logged with timestamps
 - Agent decisions tracked with rationale
